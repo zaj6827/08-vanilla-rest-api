@@ -22,6 +22,11 @@
   * `README.md`
 
 #### Feature Tasks
+* documentation:
+  * write a paragraph about what your API does
+  * document any resources that helped you complete you assignment
+  * define how another dev can 'get started' with your api on their own
+  * document each of the available endpoints; including example request/response formats for each
 * create the following directories to organize your code:
   * `lib`
   * `model`
@@ -35,6 +40,22 @@
 * create a custom url parser module that returns a promise and uses the NodeJS `url` and `querystring` modules to parse the request url
 * create a router constructor that handles requests to `GET`, `POST`, `PUT`, and `DELETE` requests
 * create a storage module that will store resources by their schema type (ex: note) and id
+
+
+## Tests _make an attempt at TDD today!!_
+* write a test to ensure that your api returns a status code of 404 for routes that have not been registered
+* write tests to ensure the `/api/simple-resource-name` endpoint responds as described for each condition below:
+ * `GET`: test 404, it should respond with 'not found' for valid requests made with an id that was not found
+ * `GET`: test 400, it should respond with 'bad request' if no id was provided in the request
+  * _note: this will need to change if you complete the bonus point_
+ * `GET`: test 200, it should contain a response body for a request made with a valid id
+ * `POST`: test 400, it should respond with 'bad request' if no request body was provided or the body was invalid
+ * `POST`: test 201, it should respond with the body content for a post request with a valid body
+ * `PUT`: test 400, it should respond with 'bad request' if no request body was provided or the body was invalid
+ * `PUT`: test 204, it should respond with no body content for a put request with a valid body
+ * `DELETE`: test 400, it should respond with 'bad request' if no resource id was provided
+ * `DELETE`: test 404, it should respond with 'not found' for valid requests made with an id that was not found
+ * `DELETE`: test 204, it should respond with no body content for a request request with a valid resource id
 
 ## Server Endpoints
 ### `/api/simple-resource-name`
@@ -52,14 +73,12 @@
  * pass `?id=<uuid>` in the query string to **DELETE** a specific resource
  * successful status code of 204
 
-## Tests
-* write a test to ensure that your api returns a status code of 404 for routes that have not been registered
-* write tests to ensure the `/api/simple-resource-name` endpoint responds as described for each condition below:
- * `GET`: test 404, it should respond with 'not found' for valid requests made with an id that was not found
- * `GET`: test 400, it should respond with 'bad request' if no id was provided in the request
- * `GET`: test 200, it should contain a response body for a request made with a valid id
- * `POST`: test 400, it should respond with 'bad request' if no request body was provided or the body was invalid
- * `POST`: test 200, it should respond with the body content for a post request with a valid body
+## Rubric: 10pts
+* 2pts: Documentation 
+* 5pts: Feature Tasks
+* 3pts: Tests
 
 ## Bonus
-* **2pts:** a `GET` request to `/api/simple-resource-name` with no **?id=<num>** should return an array of all of the ids for that resource, and associated tests
+* **1pt:** write as many unit tests as you can to cover all of the modularized code in our `lib`, `model`, and `route` dirs
+  * _reminder: test coverage standards are 80% or better in the industry_
+* **1pt:** a `GET` request to `/api/simple-resource-name` with no **?id=<num>** should return an array of all of the ids for that resource, and associated tests
