@@ -6,9 +6,7 @@ const parseJson = require('./parse-json')
 
 const Router = module.exports = function() {
   this.routes = {
-    GET: {
-      // '/cowsay': () => {}
-    },
+    GET: {},
     POST: {},
     PUT: {},
     DELETE: {}
