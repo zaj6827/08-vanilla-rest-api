@@ -50,18 +50,37 @@ module.exports = function(router) {
   router.put('api/toy', (req, res) => {
     debug('/api/toy PUT')
     try {
+      if(req.url.query._id) {
       let putToy = new Toy(req.body.name, req.body.desc)
-      storage.create('toy', putToy)
-      .then(toy => {
-        res.writeHead(204, {'Content-Type' : 'application/json'})
-        res.write(JSON.stringify(toy))
-        res.end()
-      })
+        storage.fetchOne(req.url.query._id)
+        storage.create('toy', putToy)
+        .then(toy => {
+          res.writeHead(204, {'Content-Type' : 'application/json'})
+          res.write(JSON.stringify(toy))
+          res.end()
+        })
+      }
     } catch(e) {
       console.error(e)
       res.writeHead(400, {'Content-Type' : 'text/plain'})
       res.write('bad request : no request item body included')
       res.end()
+    }
+  })
+
+  router.delete('api/toy', (req, res) => {
+    debug('/api/toy DELETE')
+    try { storage.fetchOne(toy, req.url.query.id)
+      .then(toy => {
+        res.writeHead(204, 'valid source id, its deleted')
+        res.delete(memory[toy][req.url.query.id])
+        res.end()
+      })
+    }
+    catch(e) {
+      console.error(e)
+      res.writeHead(400, {'Content-Type' : 'application/json'})
+      res.write('bad request : no source id provided')
     }
   })
 }
